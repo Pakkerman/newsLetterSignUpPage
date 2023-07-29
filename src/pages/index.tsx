@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main className=" flex h-[100svh] w-full flex-col items-center justify-center bg-slate-100 sm:bg-slate-700 ">
-      <div className=" flex h-full w-full max-w-[375px] flex-col bg-slate-100 sm:h-[80%] sm:w-[80%] sm:max-w-none sm:flex-row-reverse sm:items-center sm:justify-center sm:rounded-3xl sm:p-6">
+    <main className=" flex h-[100svh] min-h-[768px] w-full flex-col items-center justify-center bg-slate-100 sm:bg-slate-700 ">
+      <div className=" flex h-full  w-full max-w-[375px] flex-col bg-slate-100 sm:h-[80%] sm:w-[80%] sm:max-w-none sm:flex-row-reverse sm:items-center sm:justify-center sm:rounded-3xl sm:p-6">
         <div className="h-[284px] shrink overflow-hidden rounded-b-2xl sm:hidden">
           <img
             className="h-full w-full object-cover"
@@ -16,7 +16,7 @@ export default function Home() {
             alt="cover image"
           />
         </div>
-        <section className=" flex grow flex-col justify-evenly px-8 sm:items-center sm:space-y-6 ">
+        <section className=" flex grow flex-col justify-evenly px-8 sm:items-center sm:space-y-6">
           <h1 className="w-full font-RobotoBold text-4xl sm:text-[5vw] sm:leading-[4vw]">
             Stay updated!
           </h1>
