@@ -1,7 +1,26 @@
+import React, { useState } from "react"
+
 export default function Home() {
+  const [email, setEmail] = useState<string>("")
+  const [isValid, setIsValid] = useState<boolean>(true)
+
+  function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    const email = event.target.value
+    setEmail(email)
+  }
+
+  function validate(event: React.FormEvent<HTMLFormElement>): void {
+    console.log(email)
+    event.preventDefault()
+    const emailPattern = /.+@.+\..+/
+
+    const isValidEmail = emailPattern.test(email)
+    setIsValid(isValidEmail)
+  }
+
   return (
     <main className=" flex h-[100svh] min-h-[768px] w-full flex-col items-center justify-center bg-slate-100 sm:bg-slate-700 ">
-      <div className=" flex h-full  w-full max-w-[375px] flex-col bg-slate-100 sm:h-[80%] sm:w-[80%] sm:max-w-none sm:flex-row-reverse sm:items-center sm:justify-center sm:rounded-3xl sm:p-6">
+      <div className=" flex h-full w-full max-w-md flex-col bg-slate-100 sm:h-[80%] sm:w-[80%] sm:max-w-none sm:flex-row-reverse sm:items-center sm:justify-center sm:rounded-3xl sm:p-6">
         <div className="h-[284px] shrink overflow-hidden rounded-b-2xl sm:hidden">
           <img
             className="h-full w-full object-cover"
@@ -38,16 +57,42 @@ export default function Home() {
             </li>
           </ul>
 
-          <form className="flex w-full max-w-lg flex-col justify-center space-y-4">
+          <form
+            className="flex w-full max-w-lg flex-col justify-center space-y-4"
+            onSubmit={validate}
+          >
             <div className="flex flex-col space-y-2">
-              <label className="font-RobotoBold text-xs ">Email Address</label>
+              <div className="flex justify-between opacity-90">
+                <label className="font-RobotoBold text-xs ">
+                  Email Address
+                </label>
+                {!isValid && (
+                  <p className=" text-xs font-RobotoBold text-red-500">
+                    Valid Email Required
+                  </p>
+                )}
+              </div>
               <input
-                type="email"
+                type="text"
+                onChange={handleEmailChange}
+                value={email}
                 placeholder="email@company.com"
-                className="h-12 rounded-md border-[1px] border-slate-800 border-opacity-60 p-3 shadow-inner"
+                className={`h-12 rounded-md border-[1px] p-3 shadow-inner
+                hover:cursor-pointer outline-none
+                focus:border-opacity-100
+                transition-all
+                ${
+                  isValid
+                    ? "border-slate-800 border-opacity-40 "
+                    : "border-red-500 border-opacity-100 bg-red-100 bg-opacity-60"
+                }`}
               />
             </div>
-            <button className="rounded-lg bg-slate-800 py-4 font-RobotoBold text-sm text-white">
+
+            <button
+              type="submit"
+              className="rounded-lg bg-slate-800 py-4 font-RobotoBold text-sm text-white hover:cursor-pointer"
+            >
               Subscribe to monthly newsletter
             </button>
           </form>
@@ -55,5 +100,5 @@ export default function Home() {
       </div>
       {/* <Footer /> */}
     </main>
-  );
+  )
 }
