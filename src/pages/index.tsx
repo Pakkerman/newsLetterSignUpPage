@@ -58,7 +58,7 @@ export default function Home() {
           </ul>
 
           <form
-            className="flex w-full max-w-lg flex-col justify-center space-y-4"
+            className="flex w-full max-w-lg flex-col justify-center space-y-4 "
             onSubmit={validate}
           >
             <div className="flex flex-col space-y-2">
@@ -89,12 +89,15 @@ export default function Home() {
               />
             </div>
 
-            <button
-              type="submit"
-              className="rounded-lg bg-slate-800 py-4 font-RobotoBold text-sm text-white hover:cursor-pointer"
-            >
-              Subscribe to monthly newsletter
-            </button>
+            <div className="relative group">
+              <div className="absolute -inset-2 top-8 left-[50%] translate-x-[-50%] w-[90%] rounded-lg bg-gradient-to-r from-[#ff5176] to-[#fe6634] blur-lg group-hover:opacity-50 opacity-0" />
+              <button
+                type="submit"
+                className="relative w-full rounded-lg bg-slate-800 py-4 font-RobotoBold text-sm text-white hover:cursor-pointer hover:bg-gradient-to-br from-[#ff5176] to-[#fe6634] transition  "
+              >
+                Subscribe to monthly newsletter
+              </button>
+            </div>
           </form>
         </section>
       </div>
