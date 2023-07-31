@@ -4,7 +4,7 @@ import CustomButton from "~/components/CustomButton"
 import Layout from "~/components/Layout"
 import { useRouter } from "next/router"
 
-export default function success(props: { email: string }) {
+export default function Success() {
   const router = useRouter()
   const email = router.query.slug
   return (

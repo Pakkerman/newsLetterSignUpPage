@@ -9,19 +9,20 @@ const EMAIL_REGEX = /^[A-z0-9]+@[A-z0-9]+\.[A-z]+$/
 export default function Home() {
   const [email, setEmail] = useState<string>("")
   const [isValid, setIsValid] = useState<boolean>(false)
-  const [displayError, setDisplayError] = useState<boolean>(false)
+  const [displayError, setDisplayError] = useState<boolean>(true)
 
-  function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>): void {
+  const handleEmailChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     const email = event.target.value
     setEmail(email)
     validate(email)
   }
 
-  function validate(email: string): void {
-    console.log(email)
-
+  const validate = (email: string): void => {
     const isValidEmail = EMAIL_REGEX.test(email)
     setIsValid(isValidEmail)
+    setDisplayError(isValidEmail)
   }
 
   return (
@@ -37,7 +38,9 @@ export default function Home() {
           />
         </div>
         <div className="hidden h-full overflow-hidden rounded-3xl md:block">
-          <img
+          <Image
+            width={500}
+            height={500}
             className="h-full w-full object-cover object-right"
             src="assets/images/illustration-desktop.svg"
             alt="cover image"
@@ -52,15 +55,30 @@ export default function Home() {
           </h1>
           <ul className="w-full space-y-4">
             <li className="flex items-start space-x-4 ">
-              <img src="assets/images/icon-list.svg" alt="list icon" />
+              <Image
+                height={20}
+                width={20}
+                src="assets/images/icon-list.svg"
+                alt="list icon"
+              />
               <p>Product discovery and building what matters</p>
             </li>
             <li className="flex items-start space-x-4">
-              <img src="assets/images/icon-list.svg" alt="list icon" />
+              <Image
+                height={20}
+                width={20}
+                src="assets/images/icon-list.svg"
+                alt="list icon"
+              />
               <p>Measuring to ensure updates are a success</p>
             </li>
             <li className="flex items-start space-x-4">
-              <img src="assets/images/icon-list.svg" alt="list icon" />
+              <Image
+                height={20}
+                width={20}
+                src="assets/images/icon-list.svg"
+                alt="list icon"
+              />
               <p>And much more!</p>
             </li>
           </ul>
@@ -71,7 +89,7 @@ export default function Home() {
                 <label className="font-RobotoBold text-xs ">
                   Email Address
                 </label>
-                {!isValid && (
+                {!displayError && (
                   <p className=" font-RobotoBold text-xs text-red-500">
                     Valid Email Required
                   </p>
@@ -87,7 +105,7 @@ export default function Home() {
                 hover:cursor-pointer
                 focus:border-opacity-100
                 ${
-                  isValid
+                  displayError
                     ? "border-slate-800 border-opacity-40 "
                     : "border-red-500 border-opacity-100 bg-red-100 bg-opacity-60"
                 }`}
