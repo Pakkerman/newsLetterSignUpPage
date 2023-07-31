@@ -4,21 +4,23 @@ import React, { useState } from "react"
 import Layout from "~/components/Layout"
 import CustomButton from "~/components/CustomButton"
 
+const EMAIL_REGEX = /^[A-z0-9]+@[A-z0-9]+\.[A-z]+$/
+
 export default function Home() {
   const [email, setEmail] = useState<string>("")
-  const [isValid, setIsValid] = useState<boolean>(true)
+  const [isValid, setIsValid] = useState<boolean>(false)
+  const [displayError, setDisplayError] = useState<boolean>(false)
 
   function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const email = event.target.value
     setEmail(email)
+    validate(email)
   }
 
-  function validate(event: React.FormEvent<HTMLFormElement>): void {
+  function validate(email: string): void {
     console.log(email)
-    event.preventDefault()
-    const emailPattern = /^[A-z0-9]+@[A-z0-9]+\.[A-z]+$/
 
-    const isValidEmail = emailPattern.test(email)
+    const isValidEmail = EMAIL_REGEX.test(email)
     setIsValid(isValidEmail)
   }
 
@@ -63,9 +65,7 @@ export default function Home() {
             </li>
           </ul>
 
-          <form
-            className="flex w-full max-w-lg flex-col justify-center space-y-4 "
-            onSubmit={validate}>
+          <form className="flex w-full max-w-lg flex-col justify-center space-y-4 ">
             <div className="flex flex-col space-y-2">
               <div className="flex justify-between opacity-90">
                 <label className="font-RobotoBold text-xs ">
@@ -93,7 +93,7 @@ export default function Home() {
                 }`}
               />
             </div>
-            <Link href="/success">
+            <Link href={`${isValid ? `/success/${email}` : "/"}`}>
               <CustomButton buttonText=" Subscribe to monthly newsletter" />
             </Link>
           </form>
